@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>Hangman - The Game</title>
+
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+</head>
+<body>
+    <header>
+        <h1 id="h1">Hangman - The Game</h1>
+    </header>
+    
+    <body>
+
+        <p id="selectedWord">Selected Word: </p> 
+        <p id="lettersGuessed">Letters Guessed: </p> 
+        <p id="remainingLives">Lives: </p> 
+        <p id="wins">Wins: </p>
+        <p id="losses">Losses: </p>
+
+    </body>
+
+    <script type="text/javascript">
+
+        //game variables
+        var validAlpha = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]; //alpha array
+        var words = ['football','baseball','basketball','hockey','rugby','soccer','golf','cricket','tennis','swimming']; //word array
+        var selectedWord;  //randomly selected word
+        var randomWord = [];  //array for space output
+        var minusLives = 10;  //lives remaining
+        var guessedAlphaOutput = [];  //? Array for output of valid guessed letters
+        var uniqueAlpha = [];  //letters that are winner!
+        var wins = 0;  //total wins
+        var lose = 0;  //total losses
+    
+        //game setup: inital settings and pick word & display
+        var randomWordGenerator = function() {
+
+            //select word from list
+            selectedWord = words[Math.floor(Math.random()*words.length)];  
+        
+            //randomly build array for word to screen
+            for (var i = 0; i < selectedWord.length; i++) {
+                randomWord[i] = "_";
+                document.querySelector("#selectedWord").innerHTML = "Selected Word: " + randomWord.join(' ');
+            }
+        };
+
+        //minus lives counter function
+        var minusLivesFunction = function() {
+            document.querySelector("#remainingLives").innerHTML = "Lives: " + minusLives;
+        };
+
+        //display guessed letter
+        var letterGuessedFunction = function() {
+            document.querySelector("#lettersGuessed").innerHTML = "Letters Guessed: " + guessedAlphaOutput.join(', ');
+        };
+
+        //unique alpha input (no duplicate letters)
+        //var uniqueAlphaFunction = function() {
+        //    for (var j = 0; j < selectedWord.length; j++) {
+        //        if (selectedWord[j] === guessedAlphaOutput) {
+        //            guessedAlphaOutput[j] === uniqueAlpha;
+        //            uniqueAlpha --;
+        //        }
+        //    }
+        //};
+
+        //restart game (ideally automatically when complete)
+        var restartGameFunction = function() {
+            minusLives = 10;
+            guessedAlphaOutput = [];
+
+            randomWordGenerator();
+            minusLivesFunction();
+            letterGuessedFunction();
+        //    uniqueAlphaFunction();
+        console.log(selectedWord);
+        };
+
+        //run functions
+            randomWordGenerator();
+            minusLivesFunction();
+            letterGuessedFunction();
+        //    uniqueAlphaFunction();
+        console.log(selectedWord);
+
+        //key input
+        document.onkeyup = function(event) {
+            var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
+            guessedAlphaOutput.push(userGuess);
+
+        for (var j = 0; j < selectedWord.length; j++) {
+            if (selectedWord[j] === userGuess) {
+                guessedAlphaOutput[j] == userGuess;
+                uniqueAlpha --;
+            }
+        };
+        
+
+        //    minusLives--;
+
+            minusLivesFunction();
+            letterGuessedFunction();
+        //    uniqueAlphaFunction();
+
+        //if (minusLives > 0) {
+        //        wins++;
+        //       document.querySelector("#wins").innerHTML = "Wins " + wins;
+        //        console.log("Per Charlie Sheen: WINNING!!");
+        //        restartGameFunction();
+        //} 
+        //else if (minusLives == 0) {
+        //    losses++;
+        //    document.querySelector("#losses").innerHTML = "Losses " + losses;
+        //   console.log("L is for Loser!!!!");
+        //    restartGameFunction();
+        //}       
+
+    };
+
+    //Broken: Validate letter if unique
+    //Broken: Match letter to guessed word
+    //Broken: Lives count properly
+    //Broken: Roll Properly
+
+    </script>
+
+</body>
+</html>
